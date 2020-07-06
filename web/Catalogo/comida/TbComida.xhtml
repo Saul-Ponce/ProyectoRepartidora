@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmComida" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" showDetail="true"/>
+
+            <p:dataTable id="tablaComida" value="#{comidasBean.comidasList}" 
+                         var="comida" 
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} 
+                         {FirstPageLink}
+                         {PreviousPageLink} 
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wTablaComida"
+                         >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" onkeyup="PF('wTablaComida').filter()"/>
+                        <p:commandButton action="frmComida.xhtml?faces-redirect=true" icon="ui-icon-cicle-plus"/>              
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{comida.codcomida}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{comida.codcomida}"/>
+                </p:column>
+                <p:column headerText="NOMBRE" filterBy="#{comida.nombre}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{comida.nombre}"/>
+                </p:column>
+                <p:column headerText="DESCRIPCION" filterBy="#{comida.descripcion}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{comida.descripcion}"/>
+                </p:column>
+                <p:column headerText="PRECIO" filterBy="#{comida.precio}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="$#{comida.precio}"/>
+                </p:column>
+                <p:column headerText="CATEGORIA" filterBy="#{comida.codcategoria.nombreCategoria}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{comida.codcategoria.nombreCategoria}"/>
+                </p:column>
+                <p:column headerText="RESTAURANTE" filterBy="#{comida.codrestaurante.nombreRestaurante}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{comida.codrestaurante.nombreRestaurante}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();" ajax="true" update="formModificar">
+                                <f:setPropertyActionListener target="#{comidasBean.comidaSelecionada}" value="#{comida}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();">
+                                <f:setPropertyActionListener target="#{comidasBean.comidaSelecionada}" value="#{comida}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{comidasBean.eliminarComidas()}" action="TbComida.xhtml" update=":frmComida:tablaComida"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Comida">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="codigo" value="CODIGO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel value="#{comidasBean.comidaSelecionada.codcomida}" id="codigo" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="nombre" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{comidasBean.comidaSelecionada.nombre}" size="30" required="true" style="width: 1080px;margin-left: -4px" id="nombre">
+                                    <f:validateLength maximum="30"/>
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="descripcion" value="DESCRIPCION"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea value="#{comidasBean.comidaSelecionada.descripcion}" required="true" style="width: 1080px;margin-left: -4px" id="descripcion">
+                                    <f:validateLength maximum="150"/>
+                                </p:inputTextarea>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="precio" value="PRECIO"/>
+                            </p:column>
+                            <p:column>
+                                <p:spinner value="#{comidasBean.comidaSelecionada.precio}" required="true" id="precio" prefix="$" min="0"></p:spinner>
+                            </p:column>
+                        </p:row>  
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="apellido" value="CATEGORIA"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="categoria" style="width: 1080px;margin-left: -4px" value="#{comidasBean.comidaSelecionada.codcategoria.codcategoria}">
+                                    <f:selectItems value="#{comidasBean.categoriaList}" var="c" itemLabel="#{c.nombreCategoria}" itemValue="#{c.codcategoria}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="restaurante" value="RESTAURANTE"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="restaurante" style="width: 1080px;margin-left: -4px" value="#{comidasBean.comidaSelecionada.codrestaurante.codrestaurante}">
+                                    <f:selectItems value="#{comidasBean.restauranteList}" var="r" itemLabel="#{r.nombreRestaurante}" itemValue="#{r.codrestaurante}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar Cambios" icon="ui-icon-check" style="margin: 0" action="#{comidasBean.actualizarComidas()}" update="@form" ></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

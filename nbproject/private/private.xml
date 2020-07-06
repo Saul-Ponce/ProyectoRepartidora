@@ -4,6 +4,18 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Principal/TemplatePrincipal.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/restaurante/TbRestaurante.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ComidaBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/comida/frmComida.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/usuario/TbUsuario.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/CategoriaBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/restaurante/frmRestaurante.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/categoria/TbCategoria.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/usuario/frmUsuario.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/UsuarioBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/categoria/frmCategoria.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/RestauranteBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/comida/TbComida.xhtml</file>
         </group>
     </open-files>
 </project-private>

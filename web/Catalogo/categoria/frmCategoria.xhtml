@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+            <p:growl id="msg" showDetail="true" life="10000"/>
+            <p:panel header="Nueva Categoria">
+                <p:panelGrid columns="2" style="width: 100%">
+                    <h:outputLabel value="NOMBRE"/>
+                    <p:inputText value="#{categoriaBean.categoriaSelecionada.nombreCategoria}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nombrecategoria">
+                        <f:validateLength maximum="25"/>
+                    </p:inputText>
+                    
+                    <f:facet name="footer">
+                        <p:commandButton id="Guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" action="#{categoriaBean.insertarCategorias()}" update="@form"></p:commandButton>
+                        <p:commandButton id="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="TbCategoria" process="@this"></p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

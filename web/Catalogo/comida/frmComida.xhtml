@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+            <p:growl id="msg" showDetail="true" life="10000"/>
+            <p:panel header="Nueva Comida">
+                <p:panelGrid columns="2" style="width: 100%">
+                    <h:outputLabel value="NOMBRE"/>
+                    <p:inputText value="#{comidasBean.comidaSelecionada.nombre}" size="30" required="true" style="width: 1080px;margin-left: -4px" id="nombre">
+                        <f:validateLength maximum="30"/>
+                    </p:inputText>
+                    
+                    <h:outputLabel value="DESCRIPCION"/>
+                    <p:inputTextarea value="#{comidasBean.comidaSelecionada.descripcion}" required="true" style="width: 1080px;margin-left: -4px" id="descripcion">
+                        <f:validateLength maximum="150"/>
+                    </p:inputTextarea>
+                    
+                    <h:outputLabel value="PRECIO"/>
+                    <p:spinner value="#{comidasBean.comidaSelecionada.precio}" required="true" id="precio" prefix="$" min="0"></p:spinner>
+                    
+                    <h:outputLabel value="CATEGORIA"/>
+                    <p:selectOneMenu id="categoria" style="width: 1080px;margin-left: -4px" value="#{comidasBean.categoriaSeleccionada.codcategoria}">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                        <f:selectItems value="#{comidasBean.categoriaList}" var="c" itemLabel="#{c.nombreCategoria}" itemValue="#{c.codcategoria}"/>
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel value="RESTAURANTE"/>
+                    <p:selectOneMenu id="restaurante" style="width: 1080px;margin-left: -4px" value="#{comidasBean.restauranteSeleccionado.codrestaurante}">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                        <f:selectItems value="#{comidasBean.restauranteList}" var="r" itemLabel="#{r.nombreRestaurante}" itemValue="#{r.codrestaurante}"/>
+                    </p:selectOneMenu>
+                    
+                    <f:facet name="footer">
+                        <p:commandButton id="Guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" action="#{comidasBean.insertarComidas()}" update="@form"></p:commandButton>
+                        <p:commandButton id="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="TbComida" process="@this"></p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

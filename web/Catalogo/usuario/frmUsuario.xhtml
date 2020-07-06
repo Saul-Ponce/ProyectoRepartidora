@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+            <p:growl id="msg" showDetail="true" life="10000"/>
+            <p:panel header="Nuevo Usuario">
+                <p:panelGrid columns="2" style="width: 100%">
+                    <h:outputLabel value="USUARIO"/>
+                    <p:inputText disabled="true" value="#{usuarioBean.usuarioSelecionado.idusuario}" size="4" required="true" style="width: 1080px;margin-left: -4px" id="usuario">
+                        <f:validateLength maximum="4"/>
+                    </p:inputText>
+                    
+                    <h:outputLabel value="CONTRASEÑA"/>
+                    <p:password value="#{usuarioBean.usuarioSelecionado.contrasenia}" size="6" required="true" style="width: 1080px;margin-left: -4px" id="contra">
+                        <f:validateLength maximum="6"/>
+                    </p:password>
+                    
+                    <h:outputLabel value="EMPLEADO"/>
+                    <p:selectOneMenu id="empleado" style="width: 1080px;margin-left: -4px" value="#{usuarioBean.empleadoSelecionado.codempleado}">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                        <f:selectItems value="#{usuarioBean.empleadoList}" var="u" itemLabel="#{u.nombre}" itemValue="#{u.codempleado}"/>
+                    </p:selectOneMenu>
+                    
+                    <f:facet name="footer">
+                        <p:commandButton id="Guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" action="#{usuarioBean.insertarUsuario()}" update="@form"></p:commandButton>
+                        <p:commandButton id="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="TbUsuario" process="@this"></p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

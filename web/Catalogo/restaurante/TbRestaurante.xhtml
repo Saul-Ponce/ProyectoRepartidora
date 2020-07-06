@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmRestaurante" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" showDetail="true"/>
+
+            <p:dataTable id="tablaRestaurante" value="#{restauranteBean.restauranteList}" 
+                         var="restaurante" 
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} 
+                         {FirstPageLink}
+                         {PreviousPageLink} 
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wtablaRestaurante"
+                         >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" onkeyup="PF('wtablaRestaurante').filter()"/>
+                        <p:commandButton action="frmRestaurante.xhtml?faces-redirect=true" icon="ui-icon-cicle-plus"/>              
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{restaurante.codrestaurante}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{restaurante.codrestaurante}"/>
+                </p:column>
+                <p:column headerText="NOMBRE" filterBy="#{restaurante.nombreRestaurante}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{restaurante.nombreRestaurante}"/>
+                </p:column>
+                <p:column headerText="HORARIOS DE ATENCION" filterBy="#{restaurante.horariosAtencion}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{restaurante.horariosAtencion}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 1%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();" ajax="true" update="formModificar">
+                                <f:setPropertyActionListener target="#{restauranteBean.restauranteSelecionado}" value="#{restaurante}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();">
+                                <f:setPropertyActionListener target="#{restauranteBean.restauranteSelecionado}" value="#{restaurante}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{restauranteBean.eliminarRestaurante()}" action="TbRestaurante.xhtml" update=":frmRestaurante:tablaRestaurante"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Restaurante">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="codigo" value="CODIGO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel value="#{restauranteBean.restauranteSelecionado.codrestaurante}" id="codigo" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="nombre" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{restauranteBean.restauranteSelecionado.nombreRestaurante}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nombre">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="horario" value="HORARIO DE ATENCION"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{restauranteBean.restauranteSelecionado.horariosAtencion}" size="20" required="true" style="width: 1080px;margin-left: -4px" id="horario">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar Cambios" icon="ui-icon-check" style="margin: 0" action="#{restauranteBean.actualizarRestaurante()}" update="@form" ></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
