@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+       <h:form id="frmClientes" acceptcharset="ISO-1859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+            
+            <p:dataTable id="tablaClientes"
+                         value="#{clibean.cliList}"
+                         var="cl"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}
+                         {FirstPageLink}{PreviousPageLink}
+                         {PageLinks}{NextPageLink}
+                         {LastPageLink}{RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wTablaClientes">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px"
+                                     onkeyup="PF('wTablaClientes').filter()"/>
+                        <p:commandButton action="FrmClientes.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{cl.codclientes}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.codclientes}"/>
+                </p:column>
+                <p:column headerText="NOMBRE" filterBy="#{cl.nombre}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.nombre}"/>
+                </p:column>
+                <p:column headerText="APELLIDO" filterBy="#{cl.apellido}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.apellido}"/>
+                </p:column>
+                <p:column headerText="DIRECCION" filterBy="#{cl.direccion}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.direccion}"/>
+                </p:column>
+                <p:column headerText="EMAIL" filterBy="#{cl.email}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.email}"/>
+                </p:column>
+                <p:column headerText="TELEFONO" filterBy="#{cl.telefono}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{cl.telefono}"/>
+                </p:column>
+                <p:column headerText="MUNICIPIO" filterBy="#{cl.codmunicipio.nombreMunicipio}">
+                    <h:outputLabel value="#{cl.codmunicipio.nombreMunicipio}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{clibean.clienteSelect}" value="#{cl}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show()"
+                                             ajax="true" update="frmClientes:tablaClientes">
+                                <f:setPropertyActionListener 
+                                    target="#{clibean.clienteSelect}"
+                                    value="#{cl}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="¿REALMENTE DESEA ELIMINAR EL REGISTRO?"
+                         header="Mensaje de confirmacion"
+                         widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si"
+                                 oncomplete="PF('confirmacion').hide()"
+                                 ajax="true"
+                                 actionListener="#{clibean.eliminarClientes()}"
+                                 action="TblClientes.xhtml"
+                                 update="frmClientes:tablaClientes"/>  
+                <p:commandButton id="decline" value="No"
+                                 onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+          
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="MODIFICACION DE CLIENTES">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde" style="width: 1080px;margin-left: -4px">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="codC" value="CODIGO CLIENTE"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="codC" value="#{clibean.clienteSelect.codclientes}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nomC" value="NOMBRE CLIENTE"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="nomC" value="#{clibean.clienteSelect.nombre}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                                                
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="apeC" value="APELLIDO CLIENTE"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="apeC" value="#{clibean.clienteSelect.apellido}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                                                
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="dirC" value="DIRECCION"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="dirC" value="#{clibean.clienteSelect.direccion}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                                                
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="emaC" value="EMAIL"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="emaC" value="#{clibean.clienteSelect.email}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                                                
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="telC" value="TELEFONO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="telC" value="#{clibean.clienteSelect.telefono}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="MUNICIPIO"/> 
+                            </p:column>
+                            <p:column>
+                                <h:selectOneMenu value="#{clibean.municipioSelect.codmunicipio}" required="true" style="width: 180px; margin-left: -4px">
+                                    <f:selectItem itemLabel="#{clibean.clienteSelect.codmunicipio.nombreMunicipio}" itemValue="#{clibean.clienteSelect.codmunicipio.nombreMunicipio}"/>
+                                    <f:selectItems value="#{clibean.muniList}" var="x" itemLabel="#{x.nombreMunicipio} " itemValue="#{x.codmunicipio}" />
+                                </h:selectOneMenu>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="contra" value="PASSWORD"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="contra" value="#{clibean.clienteSelect.contrasenia}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar"
+                                                 value="Guardar Cambios"
+                                                 icon="ui-icon-check"
+                                                 style="margin: 0"
+                                                 action="#{clibean.modificarClientes()}"
+                                                 update="@form"></p:commandButton>
+                                <p:commandButton id="cancelar"
+                                                 value="Cancelar"
+                                                 icon="ui-circle-close"
+                                                 style="margin: 0"
+                                                 action="TblClientes.xhtml"
+                                                 update="@form"></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

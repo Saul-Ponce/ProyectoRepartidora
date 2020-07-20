@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+   <h:form id="frmViajes" acceptcharset="ISO-1859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" closable="true" showDetail="true"/>
+            
+            <p:dataTable id="tablaViajes"
+                         value="#{vb.viajeList}"
+                         var="v"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}
+                         {FirstPageLink}{PreviousPageLink}
+                         {PageLinks}{NextPageLink}
+                         {LastPageLink}{RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wTablaViajes">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px"
+                                     onkeyup="PF('wTablaViajes').filter()"/>
+                        <p:commandButton action="FrmViajes.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{v.codviaje}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{v.codviaje}"/>
+                </p:column>
+                
+                <p:column headerText="EMPLEADO" filterBy="#{v.codempleado.nombre} #{v.codempleado.apellido}">
+                    <h:outputLabel value="#{v.codempleado.nombre} #{v.codempleado.apellido}"/>
+                </p:column>
+                
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{vb.viajeSelect}" value="#{v}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show()"
+                                             ajax="true" update="frmViajes:tablaViajes">
+                                <f:setPropertyActionListener 
+                                    target="#{vb.viajeSelect}"
+                                    value="#{v}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="¿REALMENTE DESEA ELIMINAR EL REGISTRO?"
+                         header="Mensaje de confirmacion"
+                         widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si"
+                                 oncomplete="PF('confirmacion').hide()"
+                                 ajax="true"
+                                 actionListener="#{vb.eliminarViaje()}"
+                                 action="TblViajes.xhtml"
+                                 update="frmViajes:tablaViajes"/>  
+                <p:commandButton id="decline" value="No"
+                                 onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+          
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="MODIFICACION DE CLIENTES">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde" style="width: 1080px;margin-left: -4px">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="codV" value="CODIGO VIAJE"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="codV" value="#{vb.viajeSelect.codviaje}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="EMPLEADO"/> 
+                            </p:column>
+                            <p:column>
+                                <h:selectOneMenu value="#{vb.empleadoSelect.codempleado}" required="true" style="width: 180px; margin-left: -4px">
+                                    <f:selectItem itemLabel="#{vb.viajeSelect.codempleado.nombre} #{vb.viajeSelect.codempleado.apellido}" itemValue="#{vb.viajeSelect.codempleado.nombre} #{vb.viajeSelect.codempleado.apellido}"/>
+                                    <f:selectItems value="#{vb.empleadoList}" var="x" itemLabel="#{x.nombre} #{x.apellido} " itemValue="#{x.codempleado}" />
+                                </h:selectOneMenu>                          </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar"
+                                                 value="Guardar Cambios"
+                                                 icon="ui-icon-check"
+                                                 style="margin: 0"
+                                                 action="#{vb.modificarViaje()}"
+                                                 update="@form"></p:commandButton>
+                                <p:commandButton id="cancelar"
+                                                 value="Cancelar"
+                                                 icon="ui-circle-close"
+                                                 style="margin: 0"
+                                                 action="TblViajes.xhtml"
+                                                 update="@form"></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+ 
+    </ui:define>
+
+</ui:composition>
