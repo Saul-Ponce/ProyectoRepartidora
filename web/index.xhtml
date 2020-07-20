@@ -1,12 +1,67 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>INCIAR SESION</title>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     </h:head>
-    <h:body>
-        Hello from Facelets
+    <h:body styleClass="cyan lighter-5">
+        <div class="valign-wrapper" id="login-page">
+            <div class="container" style="position: absolute; top: 20%;left: 17%">
+                <div class="center-align">
+                    <div class="row">
+                        <div class="cool s6 offset-3">
+                            <div class="card">
+                                <div class="card-content">
+                                    <i class="large material-icons">account_circle</i>
+                                    <div class="left-align">
+                                        <h:form id="login-form">
+                                            <p:growl autoUpdate="true" />
+                                            <div class="row">
+                                                <div class="col s12 input-field" align="center">
+                                                    <h4>INICIAR SESION</h4>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12 input-field">
+                                                    <h:outputLabel for="usuario" value="Usuario"/>
+                                                    <h:inputText id="usuario" value="#{loginBean.usuarioSelecionado.idusuario}" required="true" requiredMessage="Falta el usuario"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12 input-field">
+                                                    <h:outputLabel for="contra" value="Contraseña"/>
+                                                    <p:password id="contra" value="#{loginBean.usuarioSelecionado.contrasenia}" required="true" requiredMessage="Falta la contraseña"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col s12 input-field">
+                                                    <h:commandLink value="Iniciar Sesion" action="#{loginBean.validarUsuario()}" styleClass="btn btn-large" />
+                                                </div>
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).on("ready", funtion();{
+            $('#login-page').css({'height': window.innerHeight + 'px'});
+            }
+            );
+        </script>
     </h:body>
 </html>
 

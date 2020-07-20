@@ -3,7 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -13,7 +15,7 @@
     </h:head>
 
     <h:body>
-        <table cellspacing="10px">
+        <table cellspacing="10px" style="width:100%">
             <tr>
                 <td id="top">
                     <ui:insert name="top">
@@ -21,9 +23,40 @@
                             <center>
                                 <h2> Sistema de Comida a domicilio</h2>
                             </center>
-                            <p:menubar>
-                                <p:menuitem value="Home" url="/faces/index.xhtml"> </p:menuitem>
-                            </p:menubar>
+                            
+                            <b:navBar brand="Home" style="" brandHref="#" fluid="true">
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Restaurantes y comidas" >
+                                            <b:dropMenu value="Categorias de comida" >
+                                                <b:navLink value="Registrar nueva categoria" href="../../Catalogo/categoria/frmCategoria.xhtml"></b:navLink>
+                                                <b:navLink value="Gestionar categorias" href="../../Catalogo/categoria/TbCategoria.xhtml"></b:navLink>
+                                            </b:dropMenu>
+                                            <b:dropMenu value="Restaurante" >
+                                                <b:navLink value="Registrar nuevo restaurante" href="../../Catalogo/restaurante/frmRestaurante.xhtml"></b:navLink>
+                                                <b:navLink value="Gestionar restaurantes" href="../../Catalogo/restaurante/TbRestaurante.xhtml"></b:navLink>
+                                            </b:dropMenu>
+                                            <b:dropMenu value="Comidas" >
+                                                <b:navLink value="Registrar Nueva comida" href="../../Catalogo/comida/frmComida.xhtml"></b:navLink>
+                                                <b:navLink value="Gestionar comidas" href="../../Catalogo/comida/TbComida.xhtml"></b:navLink>
+                                            </b:dropMenu>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Usuarios" >
+                                        <b:navLink value="Registar usuario" href="../../Catalogo/usuario/frmUsuario.xhtml"></b:navLink>
+                                        <b:navLink value="gestionar usuarios" href="../../Catalogo/usuario/TbUsuario.xhtml"></b:navLink>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+
+                            
+                            <b:navbarLinks pull="right"><b:navLink value="    " href="#"></b:navLink></b:navbarLinks>
+                            <b:navbarLinks pull="right" styleClass="hidden-xs">
+                                <b:dropMenu value="#{loginBean.empleado().nombre} #{loginBean.empleado().apellido}">
+                                    <b:navLink value="Perfil" href="#"></b:navLink>
+                                    <b:navLink value="Cerrar session" href="#"></b:navLink>
+                                </b:dropMenu>
+                            </b:navbarLinks>
+                        </b:navBar>
                         </h:form>
                     </ui:insert>
                 </td>

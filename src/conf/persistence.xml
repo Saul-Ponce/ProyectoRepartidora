@@ -3,6 +3,15 @@
   <persistence-unit name="ProyectoFinalPU" transaction-type="JTA">
     <jta-data-source>java:app/JNDI/Repartidora</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+  <persistence-unit name="ProyectoFinalPU2" transaction-type="JTA">
+    <jta-data-source>java:app/repartidora</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
   </persistence-unit>
 </persistence>
