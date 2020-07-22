@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Municipio.findAll", query = "SELECT m FROM Municipio m")
     , @NamedQuery(name = "Municipio.findByCodmunicipio", query = "SELECT m FROM Municipio m WHERE m.codmunicipio = :codmunicipio")
-    , @NamedQuery(name = "Municipio.findByNombreMunicipio", query = "SELECT m FROM Municipio m WHERE m.nombreMunicipio = :nombreMunicipio")})
+    , @NamedQuery(name = "Municipio.findByNombreMunicipio", query = "SELECT m FROM Municipio m WHERE m.nombreMunicipio = :nombreMunicipio")
+    , @NamedQuery(name = "Municipio.findByCostoenvio", query = "SELECT m FROM Municipio m WHERE m.costoenvio = :costoenvio")})
 public class Municipio implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +44,9 @@ public class Municipio implements Serializable {
     @Size(max = 20)
     @Column(name = "nombre_municipio")
     private String nombreMunicipio;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "costoenvio")
+    private Double costoenvio;
     @OneToMany(mappedBy = "codmunicipio")
     private List<Clientes> clientesList;
 
@@ -67,6 +71,14 @@ public class Municipio implements Serializable {
 
     public void setNombreMunicipio(String nombreMunicipio) {
         this.nombreMunicipio = nombreMunicipio;
+    }
+
+    public Double getCostoenvio() {
+        return costoenvio;
+    }
+
+    public void setCostoenvio(Double costoenvio) {
+        this.costoenvio = costoenvio;
     }
 
     @XmlTransient

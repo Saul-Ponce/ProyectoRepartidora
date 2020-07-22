@@ -56,9 +56,9 @@ public class Pedidos implements Serializable {
     @ManyToOne
     private Clientes codcliente;
     @OneToMany(mappedBy = "codpedido")
-    private List<Detallepedido> detallepedidoList;
+    private List<Pago> pagoList;
     @OneToMany(mappedBy = "codpedido")
-    private List<Viaje> viajeList;
+    private List<Detallepedido> detallepedidoList;
 
     public Pedidos() {
     }
@@ -100,21 +100,21 @@ public class Pedidos implements Serializable {
     }
 
     @XmlTransient
+    public List<Pago> getPagoList() {
+        return pagoList;
+    }
+
+    public void setPagoList(List<Pago> pagoList) {
+        this.pagoList = pagoList;
+    }
+
+    @XmlTransient
     public List<Detallepedido> getDetallepedidoList() {
         return detallepedidoList;
     }
 
     public void setDetallepedidoList(List<Detallepedido> detallepedidoList) {
         this.detallepedidoList = detallepedidoList;
-    }
-
-    @XmlTransient
-    public List<Viaje> getViajeList() {
-        return viajeList;
-    }
-
-    public void setViajeList(List<Viaje> viajeList) {
-        this.viajeList = viajeList;
     }
 
     @Override

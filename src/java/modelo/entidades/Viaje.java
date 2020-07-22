@@ -51,9 +51,6 @@ public class Viaje implements Serializable {
     @JoinColumn(name = "codpago", referencedColumnName = "codpago")
     @ManyToOne
     private Pago codpago;
-    @JoinColumn(name = "codpedido", referencedColumnName = "codpedidos")
-    @ManyToOne
-    private Pedidos codpedido;
 
     public Viaje() {
     }
@@ -102,14 +99,6 @@ public class Viaje implements Serializable {
 
     public void setCodpago(Pago codpago) {
         this.codpago = codpago;
-    }
-
-    public Pedidos getCodpedido() {
-        return codpedido;
-    }
-
-    public void setCodpedido(Pedidos codpedido) {
-        this.codpedido = codpedido;
     }
 
     @Override

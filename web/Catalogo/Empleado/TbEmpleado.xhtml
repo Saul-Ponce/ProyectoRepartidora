@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmEmpleado" acceptcharset="ISO-8859-1">
+            <p:growl autoUpdate="true" showDetail="true"/>
+            <p:messages autoUpdate="true" showDetail="true"/>
+
+            <p:dataTable id="tablaEmpleado" value="#{empleadoBean.empleadoList}" 
+                         var="empleado" 
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} 
+                         {FirstPageLink}
+                         {PreviousPageLink} 
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wtablaEmpleado"
+                         >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" onkeyup="PF('wtablaEmpleado').filter()"/>
+                        <p:commandButton action="frmEmpleado.xhtml?faces-redirect=true" icon="ui-icon-cicle-plus"/>              
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{empleado.codempleado}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.codempleado}"/>
+                </p:column>
+                <p:column headerText="NOMBRE" filterBy="#{empleado.nombre}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.nombre}"/>
+                </p:column>
+                <p:column headerText="APELLIDO" filterBy="#{empleado.apellido}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.apellido}"/>
+                </p:column>
+                <p:column headerText="DUI" filterBy="#{empleado.dui}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.dui}"/>
+                </p:column>
+                <p:column headerText="DIRECCION" filterBy="#{empleado.direccion}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.direccion}"/>
+                </p:column>
+                <p:column headerText="ISSS" filterBy="#{empleado.isss}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.isss}"/>
+                </p:column>
+                <p:column headerText="NIT" filterBy="#{empleado.nit}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.nit}"/>
+                </p:column>
+                <p:column headerText="FECHA DE CONTRATO" filterBy="#{empleado.fechaContrato}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputText value="#{empleado.fechaContrato}" >  
+                        <f:convertDateTime pattern="YYYY-MM-dd"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="ESTADO" filterBy="#{empleado.estado}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.estado}"/>
+                </p:column>
+                <p:column headerText="CARGO" filterBy="#{empleado.codcargo.nombrecargo}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{empleado.codcargo.nombrecargo}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 1%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();" ajax="true" update="formModificar">
+                                <f:setPropertyActionListener target="#{empleadoBean.empleadoSelecionado}" value="#{empleado}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();">
+                                <f:setPropertyActionListener target="#{empleadoBean.empleadoSelecionado}" value="#{empleado}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{empleadoBean.eliminarEmpleado()}" action="TbEmpleado.xhtml" update=":frmEmpleado:tablaEmpleado"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion  datos de Empleado">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="codigo" value="CODIGO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel value="#{empleadoBean.empleadoSelecionado.codempleado}" id="codigo" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="nombre" value="NOMBRE"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.nombre}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nombre">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="apellido" value="APELLIDO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.apellido}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="apellido">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="dui" value="DUI"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.dui}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="dui">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="direccion" value="DIRECCION"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.estado}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="direccion">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="nit" value="NIT"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.nit}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nit">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="tipoc" value="TIPO DE CONTRATO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.tipoContrato}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="tipoc">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="txtFechaL" value="FECHA DE CONTRATO"/>
+                            </p:column>
+                            <p:column>
+                                <p:calendar id="txtFechaL" value="#{empleadoBean.empleadoSelecionado.fechaContrato}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="estado" value="ESTADO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText  value="#{empleadoBean.empleadoSelecionado.estado}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="esatdo">
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="restaurante" value="CARGO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="restaurante" style="width: 1080px;margin-left: -4px" value="#{empleadoBean.cargoSelecionado.codcargo}">
+                                    <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                                    <f:selectItems value="#{empleadoBean.cargoList}" var="r" itemLabel="#{r.nombrecargo}" itemValue="#{r.codcargo}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar Cambios" icon="ui-icon-check" style="margin: 0" action="#{empleadoBean.actualizarEmpleado()}" update="@form" ></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

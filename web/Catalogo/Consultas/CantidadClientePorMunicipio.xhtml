@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+           <h3 align="CENTER">Lista de Clientes Por Municipio</h3>
+           <p:panelGrid    >
+                 <br></br>
+                 <p:row>
+                     <p:column>
+                 <p:outputLabel value="Seleccione Municipio: " />
+                 
+                <p:selectOneMenu id="comboMuni" value="#{clienteBeans.municipioselect.codmunicipio}" style="width:200px">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{clienteBeans.listaMunicipio}" var="muni" itemLabel="#{muni.nombreMunicipio}" itemValue="#{muni.codmunicipio}" />
+                </p:selectOneMenu></p:column>
+
+                     <p:column>
+                    <p:commandButton value="Consultar" action="#{clienteBeans.mostrarClientes()}" update="formCliente:tablaclienteMunicipio" />
+                     </p:column>
+                 </p:row>
+                 
+                 
+            </p:panelGrid>
+          
+
+        </h:form>
+
+        <h:form id="formCliente">
+            <p:dataTable id="tablaclienteMunicipio" value="#{clienteBeans.listaCliente}" var="clien">
+                <p:column headerText="Nombre" filterBy="#{clien.nombre}">
+                    <h:outputText value="#{clien.nombre}" />
+                </p:column>
+                <p:column headerText="Apellido" filterBy="#{clien.apellido}">
+                    <h:outputText value="#{clien.apellido}" />
+                </p:column>
+                <p:column headerText="Direccion">
+                    <h:outputText value="#{clien.direccion}" />
+                </p:column>
+                <p:column headerText="Telefono">
+                    <h:outputText value="#{clien.telefono}" />
+                </p:column>
+                 <p:column headerText="Gmail">
+                     <h:outputText value="#{clien.email}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

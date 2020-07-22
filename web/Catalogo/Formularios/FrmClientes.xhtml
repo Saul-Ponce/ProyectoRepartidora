@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <h:form>
+            <p:panel header="NUEVO CLIENTE">
+                <p:panelGrid columns="2" style="width: 100%">
+                    
+                    <p:outputLabel value="CODIGO"/>
+                    <p:inputText value="#{clibean.clienteSelect.codclientes}" size="4" 
+                                 required="true" style="width: 1080px; margin-left: -4px"
+                                 id="cod">
+                        <f:validateLength minimum="1" maximum="4"/>
+                    </p:inputText>
+                    
+                    <p:outputLabel value="NOMBRE"/>
+                    <p:inputText value="#{clibean.clienteSelect.nombre}" size="30" 
+                                  required="true" style="width: 1080px; margin-left: -4px"
+                                  id="nom">
+                    </p:inputText>
+                    
+                    <p:outputLabel value="APELLIDO"/>
+                    <p:inputText value="#{clibean.clienteSelect.apellido}" size="30" 
+                                  required="true" style="width: 1080px; margin-left: -4px"
+                                  id="ap">
+                    </p:inputText>
+                    
+                    <p:outputLabel value="DIRECCION"/>
+                    <p:inputText value="#{clibean.clienteSelect.direccion}" size="150" 
+                                  required="true" style="width: 1080px; margin-left: -4px"
+                                  id="di">
+                   </p:inputText>
+                    
+                    <p:outputLabel value="EMAIL"/>
+                    <p:inputText value="#{clibean.clienteSelect.email}" size="30" 
+                                  required="true" style="width: 1080px; margin-left: -4px"
+                                  id="em">
+                    </p:inputText>
+                    
+                    <p:outputLabel value="TELEFONO"/>
+                    <p:inputText value="#{clibean.clienteSelect.telefono}" size="9" 
+                                  required="true" style="width: 1080px; margin-left: -4px"
+                                  id="te">
+                        <f:validateLength minimum="8" maximum="9"/>
+                    </p:inputText>
+                    
+                     <h:outputLabel value="MUNICIPIO"/>
+                     <p:selectOneMenu id="codMu" value="#{clibean.municipioSelect.codmunicipio}" required="true">
+                        <f:selectItem itemLabel="Seleccione" itemValue="0"/>
+                        <f:selectItems value="#{clibean.muniList}" var="x" itemLabel="#{x.nombreMunicipio}" itemValue="#{x.codmunicipio}"/>
+                    </p:selectOneMenu>
+                   
+                     <p:outputLabel value="PASSWORD"/>
+                     <p:password id="contr" value="#{clibean.clienteSelect.contrasenia}" required="true" requiredMessage="Falta la contraseña"/>
+                     
+                    
+                      </p:panelGrid>
+                        <f:facet name="footer">
+                        <p:commandButton id="guardar" value="Guardar"
+                                         icon="ui-icon-check" style="margin:0"
+                                         action="#{clibean.insertarClientes()}" 
+                                         update="@form"/>
+                        <p:commandButton id="cancelar" value="Cancelar"
+                                         icon="ui-icon-circle-close" style="margin:0 "
+                                         action="TblClientes.xhtml"
+                                         process="@this"/>
+                    </f:facet>  
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

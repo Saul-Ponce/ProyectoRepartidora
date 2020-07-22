@@ -23,40 +23,96 @@
                             <center>
                                 <h2> Sistema de Comida a domicilio</h2>
                             </center>
-                            
+
                             <b:navBar brand="Home" style="" brandHref="#" fluid="true">
                                 <b:navbarLinks>
                                     <b:dropMenu value="Restaurantes y comidas" >
-                                            <b:dropMenu value="Categorias de comida" >
-                                                <b:navLink value="Registrar nueva categoria" href="../../Catalogo/categoria/frmCategoria.xhtml"></b:navLink>
-                                                <b:navLink value="Gestionar categorias" href="../../Catalogo/categoria/TbCategoria.xhtml"></b:navLink>
-                                            </b:dropMenu>
-                                            <b:dropMenu value="Restaurante" >
-                                                <b:navLink value="Registrar nuevo restaurante" href="../../Catalogo/restaurante/frmRestaurante.xhtml"></b:navLink>
-                                                <b:navLink value="Gestionar restaurantes" href="../../Catalogo/restaurante/TbRestaurante.xhtml"></b:navLink>
-                                            </b:dropMenu>
-                                            <b:dropMenu value="Comidas" >
-                                                <b:navLink value="Registrar Nueva comida" href="../../Catalogo/comida/frmComida.xhtml"></b:navLink>
-                                                <b:navLink value="Gestionar comidas" href="../../Catalogo/comida/TbComida.xhtml"></b:navLink>
-                                            </b:dropMenu>
+                                        <b:dropMenu value="Categorias de comida" >
+                                            <b:navLink value="Registrar nueva categoria" href="../../Catalogo/categoria/frmCategoria.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar categorias" href="../../Catalogo/categoria/TbCategoria.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Restaurante" >
+                                            <b:navLink value="Registrar nuevo restaurante" href="../../Catalogo/restaurante/frmRestaurante.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar restaurantes" href="../../Catalogo/restaurante/TbRestaurante.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Comidas" >
+                                            <b:navLink value="Registrar Nueva comida" href="../../Catalogo/comida/frmComida.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar comidas" href="../../Catalogo/comida/TbComida.xhtml"></b:navLink>
+                                        </b:dropMenu>
                                     </b:dropMenu>
                                 </b:navbarLinks>
                                 <b:navbarLinks>
-                                    <b:dropMenu value="Usuarios" >
-                                        <b:navLink value="Registar usuario" href="../../Catalogo/usuario/frmUsuario.xhtml"></b:navLink>
-                                        <b:navLink value="gestionar usuarios" href="../../Catalogo/usuario/TbUsuario.xhtml"></b:navLink>
+                                    <b:dropMenu value="Viajes y pedidos">
+                                        <b:dropMenu value="Viajes" >
+                                            <b:navLink value="Registrar nuevo viaje" href="../../Catalogo/Formularios/FrmViajes.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar viajes" href="../../Catalogo/Formularios/TblViajes.xhtml"></b:navLink>
+                                            <b:navLink value="Registrar experiencia del viaje" href="../../Catalogo/Formularios/MostrarExperienciaViaje.xhtml"></b:navLink>
+                                            <b:navLink value="Mostrar experiencia del viaje" href="../../Catalogo/Formularios/MostrarExperienciaViajeEmpleado.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                            <b:navLink value="Hacer un pedido" href="../../Catalogo/Formularios/FormPedidos.xhtml"></b:navLink>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Area de pagos">
+                                        <b:navLink value="Gestionar Pagos" href="../../Catalogo/Formularios/TblPago.xhtml"></b:navLink>
+                                        <b:navLink value="Generar Factura" href="../../Catalogo/Formularios/Factura.xhtml"></b:navLink>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Clientes y Municipios">
+                                        <b:dropMenu value="Clientes" >
+                                            <b:navLink value="Registrar Cliente" href="../../Catalogo/Formularios/FrmClientes.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar Clientes" href="../../Catalogo/Formularios/TblClientes.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Municipios" >
+                                            <b:navLink value="Registrar nuevo municipio" href="../../Catalogo/Formularios/FrmMunicipio.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar municipios" href="../../Catalogo/Formularios/TblMunicipio.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Area de Empleados">
+                                        <b:dropMenu value="Empleado" >
+                                            <b:navLink value="Registrar nuevo Empleado" href="../../Catalogo/Empleado/frmEmpleado.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar Empleados" href="../../Catalogo/Empleado/TbEmpleado.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Cargos" >
+                                            <b:navLink value="Registrar nuevo cargo" href="../../Catalogo/cargo/frmCargo.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar Cargos" href="../../Catalogo/cargo/TbCargo.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Transporte" >
+                                            <b:navLink value="Registrar nuevo transporte" href="../../Catalogo/Transporte/frmTransporte.xhtml"></b:navLink>
+                                            <b:navLink value="Gestionar transportes" href="../../Catalogo/Transporte/TbTransporte.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                        <b:dropMenu value="Usuarios" >
+                                            <b:navLink value="Registar usuario" href="../../Catalogo/usuario/frmUsuario.xhtml"></b:navLink>
+                                            <b:navLink value="gestionar usuarios" href="../../Catalogo/usuario/TbUsuario.xhtml"></b:navLink>
+                                        </b:dropMenu>
+                                    </b:dropMenu>
+
+                                </b:navbarLinks>
+                                <b:navbarLinks>
+                                    <b:dropMenu value="Consultas">
+                                        <b:navLink value="Cantidad de clientes por municipio" href="../../Catalogo/Consultas/CantidadClientePorMunicipio.xhtml"></b:navLink>
+                                        <b:navLink value="Menu de comida mas vendido" href="../../Catalogo/Consultas/ConsultaMenuMasVendido.xhtml"></b:navLink>
+                                        <b:navLink value="Consulta de viajes" href="../../Catalogo/Consultas/ConsultaViajes.xhtml"></b:navLink>
+                                        <b:navLink value="Informe de pedidos" href="../../Catalogo/Consultas/InformePedido.xhtml"></b:navLink>
+                                        <b:navLink value="Pedidos por cliente" href="../../Catalogo/Consultas/PedidosPorCliente.xhtml"></b:navLink>
+                                        <b:navLink value="Viajes realizados por dia" href="../../Catalogo/Consultas/consultaMontoViaje.xhtml"></b:navLink>
+                                        <b:navLink value="Consulta del experiencia de los viajes" href="../../Catalogo/Consultas/ConsultaExperienciaViaje.xhtml"></b:navLink>
+                                        <b:navLink value="Consulta de empleados a travez del cargo" href="../../Catalogo/consultaEdwin/ConsultaPorCargo.xhtml"></b:navLink>
+                                        <b:navLink value="Consulta de empleados a por estado" href="../../Catalogo/consultaEdwin/RowGroupEstado.xhtml"></b:navLink>
                                     </b:dropMenu>
                                 </b:navbarLinks>
 
-                            
-                            <b:navbarLinks pull="right"><b:navLink value="    " href="#"></b:navLink></b:navbarLinks>
-                            <b:navbarLinks pull="right" styleClass="hidden-xs">
-                                <b:dropMenu value="#{loginBean.empleado().nombre} #{loginBean.empleado().apellido}">
-                                    <b:navLink value="Perfil" href="#"></b:navLink>
-                                    <b:navLink value="Cerrar session" href="#"></b:navLink>
-                                </b:dropMenu>
-                            </b:navbarLinks>
-                        </b:navBar>
+                                <b:navbarLinks pull="right"><b:navLink value="    " href="#"></b:navLink></b:navbarLinks>
+                                <b:navbarLinks pull="right" styleClass="hidden-xs">
+                                    <b:dropMenu value="#{loginBean.empleado().nombre} #{loginBean.empleado().apellido}">
+                                        <b:navLink value="Perfil" href="#"></b:navLink>
+                                        <b:navLink value="Cerrar session" href="../../index.xhtml"></b:navLink>
+                                    </b:dropMenu>
+                                </b:navbarLinks>
+                            </b:navBar>
                         </h:form>
                     </ui:insert>
                 </td>

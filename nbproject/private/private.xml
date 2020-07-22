@@ -3,18 +3,42 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/PedidosBeans.java</file>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Principal/TemplatePrincipal.xhtml</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/restaurante/TbRestaurante.xhtml</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/index.xhtml</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/modelo/entidades/Clientes.java</file>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/comida/frmComida.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/index.xhtml</file>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ComidaBean.java</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/usuario/TbUsuario.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Consultas/ConsultaExperienciaViaje.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/PedidosBeanV.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ViajesBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Consultas/ConsultaViajes.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/TblMunicipio.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/FrmClientes.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ViajesBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ConsultExperienciaViajeBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/LoginClienteBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/TblClientes.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/FrmMunicipio.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/FormPedidos.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/MunicipioBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/FrmViajes.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Consultas/ConsultaMenuMasVendido.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/TblViajes.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Consultas/CantidadClientePorMunicipio.xhtml</file>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/CategoriaBean.java</file>
             <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/LoginBean.java</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/comida/TbComida.xhtml</file>
-            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/UsuarioBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/TemplateCliente.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/MenuVendidoBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/FrmPago.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/RestauranteBean.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/LoginCliente.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/PagoPedidoBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Consultas/InformePedido.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Catalogo/Formularios/Factura.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/TblPago.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/web/Cliente/MostrarDetallePedido.xhtml</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/ClienteBeans.java</file>
+            <file>file:/C:/Users/Saul%20Ponce/Documents/tuve%20fe/ProyectoRepartidora/src/java/controlador/PedidosPorClienteBeans.java</file>
         </group>
     </open-files>
 </project-private>

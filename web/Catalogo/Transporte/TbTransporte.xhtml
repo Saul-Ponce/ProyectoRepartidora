@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="frmTransporte" acceptcharset="ISO-8859-1">
+            <p:growl showDetail="true"/>
+            <p:messages showDetail="true"/>
+
+            <p:dataTable id="tablaTransporte" value="#{transporteBean.transporteList}" 
+                         var="transporte" 
+                         paginator="true" 
+                         paginatorTemplate="{CurrentPageReport} 
+                         {FirstPageLink}
+                         {PreviousPageLink} 
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}" 
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wTablaTransporte"
+                         >
+
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px" onkeyup="PF('wTablaTransporte').filter()"/>
+                        <p:commandButton action="frmTransporte.xhtml?faces-redirect=true" icon="ui-icon-cicle-plus"/>              
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{transporte.codtransporte}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.codtransporte}"/>
+                </p:column>
+                <p:column headerText="PLACA" filterBy="#{transporte.placa}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.placa}"/>
+                </p:column>
+                <p:column headerText="MODELO" filterBy="#{transporte.modelo}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.modelo}"/>
+                </p:column>
+                <p:column headerText="TIPO" filterBy="#{transporte.tipo}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.tipo}"/>
+                </p:column>
+                <p:column headerText="ESTADO" filterBy="#{transporte.estado}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.estado}"/>
+                </p:column>
+                <p:column headerText="REPARTIDOR" filterBy="#{transporte.codrepartidor.nombre}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{transporte.codrepartidor.nombre}"/>
+                </p:column>
+
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();" ajax="true" update="formModificar">
+                                <f:setPropertyActionListener target="#{transporteBean.transporteSelecionado}" value="#{transporte}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();">
+                                <f:setPropertyActionListener target="#{transporteBean.transporteSelecionado}" value="#{transporte}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+        <p:confirmDialog message="¿Realmente desea borrar el registro?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{transporteBean.eliminarTransporte()}" action="TbTransporte.xhtml" update=":frmTransporte:tablaTransporte"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Modificacion de datos de Transporte">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="codigo" value="CODIGO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputLabel value="#{transporteBean.transporteSelecionado.codtransporte}" id="codigo" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="placa" value="PLACA"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{transporteBean.transporteSelecionado.placa}" size="30" required="true" style="width: 1080px;margin-left: -4px" id="placa">
+                                    <f:validateLength maximum="30"/>
+                                </p:inputText>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="modelo" value="MODELO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea value="#{transporteBean.transporteSelecionado.modelo}" required="true" style="width: 1080px;margin-left: -4px" id="modelo">
+                                    <f:validateLength maximum="150"/>
+                                </p:inputTextarea>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="tipo" value="TIPO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea value="#{transporteBean.transporteSelecionado.tipo}" required="true" style="width: 1080px;margin-left: -4px" id="tipo">
+                                    <f:validateLength maximum="150"/>
+                                </p:inputTextarea>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="estado" value="ESTADO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputTextarea value="#{transporteBean.transporteSelecionado.estado}" required="true" style="width: 1080px;margin-left: -4px" id="estado">
+                                    <f:validateLength maximum="150"/>
+                                </p:inputTextarea>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <h:outputLabel for="restaurante" value="EMPLEADO"/>
+                            </p:column>
+                            <p:column>
+                                <p:selectOneMenu id="restaurante" style="width: 1080px;margin-left: -4px" value="#{transporteBean.empleadoSelecionado.codempleado}">
+                                    <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                                    <f:selectItems value="#{transporteBean.empleadoList}" var="r" itemLabel="#{r.nombre}" itemValue="#{r.codempleado}"/>
+                                    <p:ajax event="change" update="@this" />
+                                </p:selectOneMenu>
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar Cambios" icon="ui-icon-check" style="margin: 0" action="#{transporteBean.actualizarTransporte()}" update="@form" ></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

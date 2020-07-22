@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <style>
+            ui-panelgrid tr td{
+                border: none !important;
+            }
+        </style>
+        
+       
+        <h:form id="frmViajesFiltro" acceptcharset="ISO-8859-1">
+             <p:panel header="LISTA DE VIAJES E INGRESOS OBTENIDOS"/>
+            <p:dataTable id="tablaViajesFiltro"
+                         value="#{montoBean.listViaje}"
+                         var="v"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}
+                         {FirstPageLink}
+                         {PreviousPageLink}
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                
+                 <p:column headerText="VIAJE">
+                    <h:outputLabel value="#{v[0]}"/>
+                </p:column>
+                <p:column headerText="PEDIDO">
+                     <h:outputLabel value="#{v[1]}"/>
+                </p:column>
+                <p:column headerText="TOTAL VIAJE">
+                     <h:outputLabel value="$#{v[2]}"/>
+                </p:column>
+                <p:column headerText="TIPO PAGO">
+                     <h:outputLabel value="#{v[3]}"/>
+                </p:column>
+                 <p:column headerText="FECHA PEDIDO">
+                     <h:outputLabel value="#{v[4]}"/>
+                </p:column>
+                <p:column headerText="NOMBRE REPARTIDOR">
+                     <h:outputLabel value="#{v[5]} #{v[6]}"/>
+                </p:column>
+                
+                
+            </p:dataTable>
+                    
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <!--        <div id="logopanel" align="CENTER">
+                                    <p:graphicImage url="./resources/imagenes/carrito.png" />          </div>-->
+        <h:form id="formDetalleFinal" >
+            <p:row>
+
+                <h2 align="CENTER">Carrito de Pedidos</h2></p:row>
+
+            <p:dataTable id="tablaFinal" value="#{pedidosBeans.listaDtPedido}" var="listaDT"  paginator="true" >
+                <p:column headerText="Codigo Detalle">
+                    <h:outputText value="#{listaDT.coddetalle}" />
+                </p:column>
+
+                <p:column headerText="Cantidad">
+                    <h:outputText value="#{listaDT.cantidad}" />
+                </p:column>
+                <p:column headerText="Producto">
+                    <h:outputText value="#{listaDT.codcomida.nombre}" />
+                </p:column>
+                <p:column headerText="Precio">
+                    <h:outputText value="#{listaDT.codcomida.precio}" />
+                </p:column>
+                <p:column headerText="Sub-Total">
+                    <h:outputText value="#{listaDT.codcomida.precio*listaDT.cantidad}" />
+                </p:column>
+                
+
+                <p:column headerText="">
+                    <p:commandButton icon="ui-icon-info" oncomplete="PF('dlgModificar').show();"
+                                     ajax="true" update="formModificar" >
+                        <f:setPropertyActionListener target="#{pedidosBeans.dtpedidoSelect}" value="#{listaDT}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();"
+                                     ajax="true" update="formDetalleFinal" >
+                        <f:setPropertyActionListener target="#{pedidosBeans.dtpedidoSelect}" value="#{listaDT}" />
+                    </p:commandButton>
+                </p:column>
+                
+        
+            </p:dataTable>
+            <br></br>
+            <p:panelGrid styleClass="rightAlign" >
+            <p:row>   
+            <p:column  >
+                <p:outputLabel  value="Total:" style="font-weight:bold" />
+                <h:outputText  value="#{pedidosBeans.monto}" style="font-weight:bold"   />
+            </p:column>
+            </p:row>
+            </p:panelGrid>
+            <br></br>
+            <p:commandButton value="Cancelar" action="#{pedidosBeans.eliminarTodosDetalles()}" update="@form"/>
+            <p:button value="Agregar otro Pedido" href="FormPedidos.xhtml" />
+            <p:button  style="align-content: center" value="Continuar"  href="FrmPago.xhtml" />
+        </h:form>
+        
+
+        <p:confirmDialog message="Realmente desea borrar el Pedido?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{pedidosBeans.eliminarDetalle()}"
+                                 action="MostrarDetallePedido.xhtml" update="formDetalleFinal:tablaFinal"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Detalles del Pedido">
+                <p:panel header="Pedido">
+                    <p:panelGrid styleClass="sinBorde">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Codigo pedido:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidosBeans.dtpedidoSelect.codpedido.codpedidos}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Fecha Pedido:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidosBeans.dtpedidoSelect.codpedido.fechapedido}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Hora Pedido:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidosBeans.dtpedidoSelect.codpedido.horapedido}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Restaurante:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidosBeans.dtpedidoSelect.codcomida.codrestaurante.nombreRestaurante}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Producto:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{pedidosBeans.dtpedidoSelect.codcomida.nombre}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Cantidad:" />
+                            </p:column>
+                            <p:column>
+                                <p:spinner value="#{pedidosBeans.dtpedidoSelect.cantidad}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check"
+                                                 style="margin: 0" action="#{pedidosBeans.actualizarDetalle()}" update="@form"></p:commandButton>
+                                <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="MostrarDetallePedido.xhtml" process="@this"></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

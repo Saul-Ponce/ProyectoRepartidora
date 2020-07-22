@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h3 class="first">Empleados Por Estado</h3>
+    <ui:define name="content">
+        <h:form>
+<p:panel header="EMPLEADOS POR ESTADO" >
+    <p:dataTable id="tbl" var="empleado" value="#{rowGroupViewEmpleado.empleado}" sortBy="#{empleado.estado}" expandableRowGroups="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} 
+                         {NextPageLink} {LastPageLink} {Exporters}"
+                         paginator="true" rows="10" style="margin-bottom:20px">
+
+                <f:facet name="{Exporters}">
+                    <h:commandLink>
+                        <p:graphicImage  name="imagenes/pdf.png" width="24"/>
+                        <p:dataExporter  type="pdf" target="tbl" fileName="EstadoEmpleado"/>
+                    </h:commandLink>
+                </f:facet>
+
+                <p:headerRow>
+                    <p:column colspan="4">
+                        <h:outputText value="#{empleado.estado}"/>
+                    </p:column>
+                </p:headerRow>
+                <p:column headerText="Id">
+                    <h:outputText value="#{empleado.codempleado}"/>
+                </p:column>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{empleado.nombre}"/>
+                </p:column>
+                <p:column headerText="Apellido">
+                    <h:outputText value="#{empleado.apellido}"/>
+                </p:column>
+                <p:column headerText="Dui">
+                    <h:outputText value="#{empleado.dui}"/>
+                </p:column>      
+            </p:dataTable>  
+</p:panel>
+        </h:form>  
+    </ui:define>
+</ui:composition>

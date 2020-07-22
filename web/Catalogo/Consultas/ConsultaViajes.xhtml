@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <style>
+            ui-panelgrid tr td{
+                border: none !important;
+            }
+        </style>
+        
+        <f:view>
+            <h:form id="main">
+                <p:panel header="LISTA DE VIAJES REALIZADOS POR MES"/>
+                <p:panelGrid>
+                    <p:row>
+                        <p:column headerText="MES" >
+                        <p:selectOneMenu style="width:160px" value="#{vBean.mes}">
+                                <f:selectItem itemLabel="Seleccione Mes" itemValue="0"/>
+                                 <f:selectItem itemValue="01" itemLabel="Enero" />
+                                 <f:selectItem itemValue="02" itemLabel="Febrero" />
+                                 <f:selectItem itemValue="03" itemLabel="Marzo" />
+                                 <f:selectItem itemValue="04" itemLabel="Abril" />
+                                 <f:selectItem itemValue="05" itemLabel="Mayo" />
+                                 <f:selectItem itemValue="06" itemLabel="Junio" />
+                                 <f:selectItem itemValue="07" itemLabel="Julio" />
+                                 <f:selectItem itemValue="08" itemLabel="Agosto" />
+                                 <f:selectItem itemValue="09" itemLabel="Septiembre" />
+                                 <f:selectItem itemValue="10" itemLabel="Octubre" />
+                                 <f:selectItem itemValue="11" itemLabel="Noviembre" />
+                                 <f:selectItem itemValue="12" itemLabel="Diciembre" />
+                                
+                            </p:selectOneMenu>
+                            <p:commandButton style="align-content: center" value="Consultar"
+                                             actionListener="#{vBean.listaViajesFiltradas()}"
+                                             icon="ui-icon-search" ajax="true" update=":frmViajesFiltro:tablaViajesFiltro">
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </h:form>
+        </f:view>
+        <h:form id="frmViajesFiltro" acceptcharset="ISO-8859-1">
+            <p:dataTable id="tablaViajesFiltro"
+                         value="#{vBean.listViaje}"
+                         var="v"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}
+                         {FirstPageLink}
+                         {PreviousPageLink}
+                         {PageLinks}
+                         {NextPageLink}
+                         {LastPageLink}
+                         {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15">
+                
+                 <p:column headerText="VIAJE">
+                    <h:outputLabel value="#{v[0]}"/>
+                </p:column>
+                <p:column headerText="PEDIDO">
+                     <h:outputLabel value="#{v[1]}"/>
+                </p:column>
+                <p:column headerText="NOMBRE REPARTIDOR">
+                     <h:outputLabel value="#{v[2]} #{v[3]}"/>
+                </p:column>
+                 <p:column headerText="FECHA PEDIDO">
+                     <h:outputLabel value="#{v[4]}"/>
+                </p:column>
+                
+            </p:dataTable>
+       
+        </h:form>
+    </ui:define>
+</ui:composition>
+

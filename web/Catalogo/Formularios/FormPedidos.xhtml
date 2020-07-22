@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formPedidos">
+            <h2 align="CENTER">Detalle de Pedidos</h2>
+            
+                <p:row>
+                <p:outputLabel value="Hora: " for="horapedi" />
+                 <p:clock id="horapedi" pattern="HH:mm" />
+                
+                <p:outputLabel value="Fecha: " for="fechapedi" />
+                <p:clock id="fechapedi" pattern="dd/MM/yyyy" />
+                </p:row>
+           
+        </h:form>
+        
+         <h:form id="formDetallePedido" >
+            
+                
+            <p:panel>
+                <h:outputLabel value="Cliente:  " for="cli" />
+                <p:selectOneMenu id="cli" value="#{pedidosBeans.clientesSelect.codclientes}" panelStyle="width:180px" >
+                    <f:selectItem itemLabel="Seleccione"  itemValue="0" />
+                    <f:selectItems value="#{pedidosBeans.listaCliente}" var="c" itemLabel="#{c.nombre} #{c.apellido}" itemValue="#{c.codclientes}"/>
+                </p:selectOneMenu><br></br>
+                
+                <h:outputLabel value="Restaurante" for="resta" />
+                
+                <p:selectOneMenu id="resta" widgetVar="comboresta" value="#{pedidosBeans.resSelect.codrestaurante}" panelStyle="width:180px" >
+                    <f:selectItem itemLabel="Seleccione"  itemValue="0" />
+                    <f:selectItems value="#{pedidosBeans.listaRestaurante}" var="res" itemLabel="#{res.nombreRestaurante}" itemValue="#{res.codrestaurante}"/>
+                </p:selectOneMenu>
+             
+                <p:commandButton id="btnResta" value="Menu" action="#{pedidosBeans.mostrarComidas()}" update="detalle:tablaDetalle"></p:commandButton>
+            </p:panel>
+            
+            
+        </h:form>
+        
+        <h:form id="detalle" >
+            <!--<p:growl id="msgs" showDetail="true"  skipDetailIfEqualsSummary="true" />-->
+            <p:dataTable id="tablaDetalle" value="#{pedidosBeans.listaComidas}" var="comi" selectionMode="single" selection="#{pedidosBeans.comidaSelectPrueba}" rowKey="#{comi.codcomida}">
+                
+                <p:ajax event="rowSelect" listener="#{pedidosBeans.onRowSelect}" update="mostrarmensaje:panelMsj" />
+                <p:ajax event="rowUnselect" listener="#{pedidosBeans.onRowUnselect}" update="mostrarmensaje:panelMsj"  />
+                <p:column headerText="Codigo" >
+                    <h:outputLabel value="#{comi.codcomida}" />
+                </p:column>
+                <p:column headerText="Nombre" >
+                    <h:outputLabel value="#{comi.nombre}" />
+                </p:column>
+                <p:column headerText="Descripcion" >
+                    <h:outputLabel value="#{comi.descripcion}" />
+                </p:column>
+                <p:column headerText="Precio" >
+                    <h:outputLabel value="#{comi.precio}" />
+                </p:column>
+                
+                
+            </p:dataTable>
+            
+        </h:form>
+        
+        <h:form id="mostrarmensaje">
+            <p:panel id="panelMsj" header="Pedidos">
+                <p:panelGrid >
+                    <p:column>
+                        
+                        <p:outputLabel for="producto" value="Producto" /><br></br>
+                         <br></br>
+                          <p:outputLabel for="preciouni" value="Precio Unitario" />   <br></br><br></br>
+                          <p:outputLabel for="cantidad" value="Cantidad" />   <br></br><br></br>
+                    </p:column>
+                    
+                    <p:column>
+                       
+                         <h:outputText id="producto" value="#{pedidosBeans.comidaSelectPrueba.nombre} #{pedidosBeans.comidaSelectPrueba.descripcion}" /><br></br><br></br>
+                         <h:outputText id="preciouni" value="#{pedidosBeans.comidaSelectPrueba.precio}" /><br></br><br></br>
+                         <p:spinner id="cantidad"  value="#{pedidosBeans.dtpedidoSelect.cantidad}" min="1" max="50" /><br></br><br></br>
+                    </p:column>
+                    <p:column>
+                        
+                        <p:commandButton value="Cancelar" action="#{pedidosBeans.eliminarPedido()}" update="@form" />
+                        <p:commandButton value="Añadir Al Carrito" action="#{pedidosBeans.insertarDetalle()}" update="@form" ></p:commandButton>
+                        <br></br>
+                        <!--<p:commandButton value="Mostrar" action=""  update="@form"></p:commandButton>-->
+                        <p:link value="Ir al Carrito" href="MostrarDetallePedido.xhtml" />
+                        
+                    </p:column>
+                    
+                    
+               
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+       
+    </ui:define>
+
+</ui:composition>

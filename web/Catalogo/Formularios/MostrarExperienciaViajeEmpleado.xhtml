@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formMostrarExp">
+            <h3 align="center">Descripciones de las entregas realizadas
+            </h3>
+            <p:dataTable id="tablaExpe" value="#{experienciaViajeBeans.listaexpViajeSelect}" var="exp" paginator="true">
+                
+                <p:column headerText="Codigo experiencia" filterBy="#{exp.codexperiencia}">
+                    <h:outputText value="#{exp.codexperiencia}" />
+                </p:column>
+                <p:column headerText="Nombre Repartidor" filterBy="#{exp.codviaje.codempleado.nombre} #{exp.codviaje.codempleado.apellido}">
+                    <h:outputText value="#{exp.codviaje.codempleado.nombre} #{exp.codviaje.codempleado.apellido}" />
+                </p:column>
+                <p:column headerText="Tiempo de entrega">
+                    <h:outputText value="#{exp.tiempoEntrega}" />
+                </p:column>
+                <p:column headerText="Experiencia">
+                    <h:outputText value="#{exp.experiencia}" />
+                </p:column>
+                <p:column headerText="">
+                    <p:commandButton icon="ui-icon-info" oncomplete="PF('dlgModificar').show();"
+                                     ajax="true" update="formModificar" >
+                        <f:setPropertyActionListener target="#{experienciaViajeBeans.expViajeSelect}" value="#{exp}" />
+                    </p:commandButton>
+                    <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show();"
+                                     ajax="true" update="formMostrarExp" >
+                        <f:setPropertyActionListener target="#{experienciaViajeBeans.expViajeSelect}" value="#{exp}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="Realmente desea borrar el Registro?" header="Mensaje de confirmacion" widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si" oncomplete="PF('confirmacion').hide()" actionListener="#{experienciaViajeBeans.eliminarExperiencia()}"
+                                 action="MostrarExperienciaViajeEmpleado.xhtml" update="formMostrarExp:tablaExpe"/>
+                <p:commandButton id="decline" value="No" onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+        
+         <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Detalles del Viaje">
+                <p:panel header="Pedido">
+                    <p:panelGrid styleClass="sinBorde">
+                       
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Cod Viaje:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{experienciaViajeBeans.expViajeSelect.codviaje.codviaje}"/>
+                            </p:column>
+                        </p:row>
+                         <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Repartidor:" />
+                            </p:column>
+                            <p:column>
+                                <h:outputText value="#{experienciaViajeBeans.expViajeSelect.codviaje.codempleado.nombre} #{experienciaViajeBeans.expViajeSelect.codviaje.codempleado.apellido}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Tiempo de Entrega:" />
+                            </p:column>
+                            <p:column>
+                                <h:inputText value="#{experienciaViajeBeans.expViajeSelect.tiempoEntrega}" />
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel  value="Descripcion de Entrega:" />
+                            </p:column>
+                            <p:column>
+                                <h:inputText value="#{experienciaViajeBeans.expViajeSelect.experiencia}" />
+                            </p:column>
+                        </p:row>
+                        
+                        
+                         <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar" value="Guardar" icon="ui-icon-check"
+                                                 style="margin: 0" action="#{experienciaViajeBeans.actualizarExperiencia()}" update="@form"></p:commandButton>
+                                <p:commandButton id="cancelar" value="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="MostrarDetallePedido.xhtml" process="@this"></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

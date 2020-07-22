@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <style>
+            ui-panelgrid tr td{
+                border: none !important;
+            }
+        </style>
+        <h:form id="formfactura">
+            <h2 align="CENTER">INFORME PEDIDO</h2>
+
+            <p:panel>
+                <p:row>
+                    <p:outputLabel value="Al Instante S.A de C.V"  />  <br></br><br></br>
+                    <p:outputLabel value="Telefono:2243-2323"/> <br></br><br></br>
+
+                    <p:outputLabel value="Fecha: " for="fechapedi" />
+                    <p:clock id="fechapedi" pattern="dd/MM/yyyy" />
+                </p:row> 
+            </p:panel>
+        </h:form>
+
+        <f:view>
+            <h:form id="main">
+
+                <p:panelGrid>
+                    <p:row>
+                        <p:column headerText="Codigo Pedido" >
+                            <p:inputText style="width:160px" value="#{infBean.pedidoSelectedi.codpedidos}"/>
+
+                            <p:commandButton style="align-content: center" value="Consultar"
+                                             actionListener="#{infBean.listaInforme()}"
+                                             icon="ui-icon-search" ajax="true" update=":frmFacturaFiltro:tablaFacturaFiltro">
+                            </p:commandButton>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </h:form>
+        </f:view>
+
+        <h:form id="frmFacturaFiltro" acceptcharset="ISO-8859-1">
+
+            <p:panel>
+                <p:dataTable id="tablaFacturaFiltro"
+                             value="#{infBean.listPagos}"
+                             var="v">
+
+                    <p:column headerText="PEDIDO">
+                        <h:outputLabel value="#{v[0]}"/>
+                    </p:column>
+                    <p:column headerText="FECHA PEDIDO">
+                        <h:outputLabel value="#{v[1]}"/>
+                    </p:column>
+                    <p:column headerText="HORA PEDIDO">
+                        <h:outputLabel value=" #{v[2]}"/>
+                    </p:column>
+                    <p:column headerText="FINALIZADO">
+                        <h:outputLabel value="EN 30 MINUTOS EL PEDIDO LLEGARA A SU DESTINO."/>
+                    </p:column>
+                    <p:column headerText="REPARTIDOR">
+                        <h:outputLabel value="#{v[3]} #{v[4]}"/>
+                    </p:column>
+                    <p:column headerText="PLACA">
+                        <h:outputLabel value=" #{v[5]}"/>
+                    </p:column>
+                    <p:column headerText="TIPO TRANSPORTE">
+                        <h:outputLabel value=" #{v[6]}"/>
+                    </p:column>
+
+                    
+
+                    <p:column headerText="MODELO">
+                        <h:outputLabel value=" #{v[7]}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:panel> 
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+

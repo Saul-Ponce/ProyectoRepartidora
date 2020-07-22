@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+      <h:form id="frmMunicipio" acceptcharset="ISO-1859-1">
+            <p:growl  showDetail="true"/>
+            <p:messages  closable="true" showDetail="true"/>
+            
+            <p:dataTable id="tablaMunicipio"
+                         value="#{ct.muniList}"
+                         var="c"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}
+                         {FirstPageLink}{PreviousPageLink}
+                         {PageLinks}{NextPageLink}
+                         {LastPageLink}{RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         widgetVar="wTablaMunicipio">
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <p:outputLabel value="Busqueda" for="globalFilter"/>
+                        <p:inputText id="globalFilter" style="width: 500px"
+                                     onkeyup="PF('wTablaMunicipio').filter()"/>
+                        <p:commandButton action="FrmMunicipio.xhtml?faces-redirect=true"
+                                         icon="ui-icon-circle-plus"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="CODIGO" filterBy="#{c.codmunicipio}" style="width: 50px;margin-left: -4px">
+                    <h:outputLabel value="#{c.codmunicipio}"/>
+                </p:column>
+                <p:column headerText="NOMBRE" filterBy="#{c.nombreMunicipio}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{c.nombreMunicipio}"/>
+                </p:column>
+                <p:column headerText="COSTO DE ENVIO" filterBy="#{c.costoenvio}" style="width: 100px;margin-left: -4px">
+                    <h:outputLabel value="#{c.costoenvio}"/>
+                </p:column>
+                <p:column headerText="Acciones" style="width: 12%">
+                    <p:panelGrid>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" update="formModificar">
+                                <f:setPropertyActionListener 
+                                    target="#{ct.municipioSelect}" value="#{c}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton icon="ui-icon-trash" oncomplete="PF('confirmacion').show()"
+                                             ajax="true" update="frmMunicipio:tablaMunicipio">
+                                <f:setPropertyActionListener 
+                                    target="#{ct.municipioSelect}"
+                                    value="#{c}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog message="¿REALMENTE DESEA ELIMINAR EL REGISTRO?"
+                         header="Mensaje de confirmacion"
+                         widgetVar="confirmacion">
+            <h:form>
+                <p:commandButton id="confirm" value="Si"
+                                 oncomplete="PF('confirmacion').hide()"
+                                 ajax="true"
+                                 actionListener="#{ct.eliminarMunicipio()}"
+                                 action="TblMunicipio.xhtml"
+                                 update="frmMunicipio:tablaMunicipio"/>  
+                <p:commandButton id="decline" value="No"
+                                 onclick="PF('confirmacion').hide()" type="button"/>
+            </h:form>
+        </p:confirmDialog>
+          
+        <h:form id="formModificar">
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="MODIFICACION DE MUNICIPIOS">
+                <p:panel header="Modificar">
+                    <p:panelGrid styleClass="sinBorde" style="width: 1080px;margin-left: -4px">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="codM" value="CODIGO MUNICIPIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:outputText id="codM" value="#{ct.municipioSelect.codmunicipio}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="nomM" value="NOMBRE MUNICIPIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="nomM" value="#{ct.municipioSelect.nombreMunicipio}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel for="costo" value="COSTO DE ENVIO"/>
+                            </p:column>
+                            <p:column>
+                                <h:inputText id="costo" value="#{ct.municipioSelect.costoenvio}" style="width: 1080px;margin-left: -4px"/>
+                            </p:column>
+                        </p:row>
+                        
+                        <p:row>
+                            <p:column>
+                                <p:commandButton id="guardar"
+                                                 value="Guardar Cambios"
+                                                 icon="ui-icon-check"
+                                                 style="margin: 0"
+                                                 action="#{ct.modificarMunicipio()}"
+                                                 update="@form"></p:commandButton>
+                                <p:commandButton id="cancelar"
+                                                 value="Cancelar"
+                                                 icon="ui-circle-close"
+                                                 style="margin: 0"
+                                                 action="TblMunicipio.xhtml"
+                                                 update="@form"></p:commandButton>
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:dialog>
+        </h:form>
+    
+    </ui:define>
+
+</ui:composition>

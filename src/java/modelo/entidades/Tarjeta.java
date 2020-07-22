@@ -6,19 +6,18 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,7 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tarjeta.findAll", query = "SELECT t FROM Tarjeta t")
     , @NamedQuery(name = "Tarjeta.findByCodtarjeta", query = "SELECT t FROM Tarjeta t WHERE t.codtarjeta = :codtarjeta")
     , @NamedQuery(name = "Tarjeta.findByNumero", query = "SELECT t FROM Tarjeta t WHERE t.numero = :numero")
-    , @NamedQuery(name = "Tarjeta.findByPin", query = "SELECT t FROM Tarjeta t WHERE t.pin = :pin")
     , @NamedQuery(name = "Tarjeta.findByFechaValida", query = "SELECT t FROM Tarjeta t WHERE t.fechaValida = :fechaValida")})
 public class Tarjeta implements Serializable {
 
@@ -45,14 +43,12 @@ public class Tarjeta implements Serializable {
     @Size(max = 29)
     @Column(name = "numero")
     private String numero;
-    @Size(max = 3)
-    @Column(name = "pin")
-    private String pin;
     @Size(max = 5)
     @Column(name = "fecha_valida")
     private String fechaValida;
-    @OneToMany(mappedBy = "codtarjeta")
-    private List<Pago> pagoList;
+    @JoinColumn(name = "codpago", referencedColumnName = "codpago")
+    @ManyToOne
+    private Pago codpago;
 
     public Tarjeta() {
     }
@@ -77,14 +73,6 @@ public class Tarjeta implements Serializable {
         this.numero = numero;
     }
 
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
     public String getFechaValida() {
         return fechaValida;
     }
@@ -93,13 +81,12 @@ public class Tarjeta implements Serializable {
         this.fechaValida = fechaValida;
     }
 
-    @XmlTransient
-    public List<Pago> getPagoList() {
-        return pagoList;
+    public Pago getCodpago() {
+        return codpago;
     }
 
-    public void setPagoList(List<Pago> pagoList) {
-        this.pagoList = pagoList;
+    public void setCodpago(Pago codpago) {
+        this.codpago = codpago;
     }
 
     @Override

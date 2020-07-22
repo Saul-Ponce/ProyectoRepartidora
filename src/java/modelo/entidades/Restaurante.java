@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -47,6 +48,9 @@ public class Restaurante implements Serializable {
     @Size(max = 20)
     @Column(name = "horarios_atencion")
     private String horariosAtencion;
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
     @OneToMany(mappedBy = "codrestaurante")
     private List<Comidas> comidasList;
 
@@ -79,6 +83,14 @@ public class Restaurante implements Serializable {
 
     public void setHorariosAtencion(String horariosAtencion) {
         this.horariosAtencion = horariosAtencion;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @XmlTransient

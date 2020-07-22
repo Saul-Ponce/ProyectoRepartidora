@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+         <h:form id="formExperiencia" style="align-content: center" >
+             <h3 align="center">Formulario de registro de las experiencias en los viajes</h3>
+            <p:panel style="border: none" >
+                <p:panelGrid columns="2" style="sinBorde">
+            
+
+                <h:outputLabel for="codexp" value="Codigo:"/>
+                <p:inputText id="codexp" value="#{experienciaViajeBeans.expViajeSelect.codexperiencia}" maxlength="4" />
+                </p:panelGrid>
+                <br></br>
+                <p:panel header="Seleccione Viaje" >
+                    <p:dataTable id="tablaDetalle" value="#{experienciaViajeBeans.listaViajeSelect}" var="comi" selectionMode="single" selection="#{experienciaViajeBeans.viajeSelectPrueba}" rowKey="#{comi.codviaje}">
+                
+                    <p:ajax event="rowSelect" listener="#{experienciaViajeBeans.onRowSelect}" update="" />
+                    <p:ajax event="rowUnselect" listener="#{experienciaViajeBeans.onRowUnselect}" update=""  />
+                <p:column headerText="Codigo Viaje" >
+                    <h:outputLabel value="#{comi.codviaje}" />
+                </p:column>
+                <p:column headerText="Nombre Repartidor" >
+                    <h:outputLabel value="#{comi.codempleado.nombre} #{comi.codempleado.apellido}" />
+                </p:column>
+                <p:column headerText="Codigo Pedido" >
+                    <h:outputLabel value="#{comi.codpago.codpedido.codpedidos}" />
+                </p:column>
+                <p:column headerText="Fecha pedido" >
+                    <h:outputLabel value="#{comi.codpago.codpedido.fechapedido}" >
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputLabel>
+                </p:column>
+                    <p:column headerText="hora pedido" >
+                        <h:outputLabel value="#{comi.codpago.codpedido.horapedido}" >
+                        <f:convertDateTime pattern="HH:mm"/>
+                        </h:outputLabel>
+                </p:column>
+                
+                
+            </p:dataTable>
+                </p:panel>
+                <p:panelGrid columns="2" style="border: none">
+                    <h:outputLabel for="tiempo" value="Tiempo de entrega:" style="border: none"/>
+                    <p:inputMask style="border: none" id="tiempo" value="#{experienciaViajeBeans.expViajeSelect.tiempoEntrega}" maxlength="2"/>
+                <p:outputLabel for="experi" value="Detalle experiencia:"/>
+                <p:inputTextarea id="experi" value="#{experienciaViajeBeans.expViajeSelect.experiencia}" />
+                </p:panelGrid>
+           
+                
+                <p:commandButton value="Registrar" action="#{experienciaViajeBeans.insertarExperiencia()}" update="@form"/>
+            </p:panel>
+
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

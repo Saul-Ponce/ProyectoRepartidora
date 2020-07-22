@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main" >
+            <h2 align="CENTER">Registro de Pago</h2>
+            <p:growl id="msg" showDetail="true" life="10000"/>
+
+            <p:panelGrid columns="2" style="width: 100%">
+
+                <h:outputLabel  value="CODIGO PEDIDO"/>
+                <h:outputText value="#{pagoBeans.pedidoSelectE.codpedidos}"                           
+                               style="width: 180px; margin-left: -4px" id="pedido"/>
+
+
+                <h:outputLabel  value="TOTAL DE PEDIDO"/>
+                <h:outputText value="$#{pagoBeans.mon}"/>
+             
+                <h:outputLabel  value="MONTO VIAJE"/>
+                <p:outputLabel value="#{pagoBeans.envio}"
+                               style="width: 180px; margin-left: -4px" />
+                
+                <h:outputLabel  value="TOTAL A PAGAR"/>
+                <h:outputText value="$#{pagoBeans.montotal}"/>
+
+                <p:row>
+                <p:outputLabel  value="TIPO PAGO"/>
+                <h:selectOneMenu  style="width: 160px" value="#{pagoBeans.pagoSelect.tipoPago}"   >
+                   
+                    <f:selectItem itemValue="Seleccione" itemLabel="Seleccione"/>
+                     <!--<p:ajax  update="formTarjeta" process="@this" event="change" oncomplete="PF('dlgModificar').show();" />-->
+                    <f:selectItem itemValue="Tarjeta" itemLabel="Tarjeta"  >
+                        
+                    </f:selectItem>
+                    <f:selectItem itemValue="Efectivo" itemLabel="Efectivo" />
+                </h:selectOneMenu> 
+               
+                
+                <p:commandButton icon="ui-icon-plus" oncomplete="PF('dlgModificar').show();"
+                                             ajax="true" value="RegistroTarjeta"   update="formTarjeta"></p:commandButton>
+
+                </p:row>
+
+                <f:facet name="footer">
+                    <p:commandButton id="guardar"
+                                     value="Realizar compra" 
+                                     icon="ui-icon-check"
+                                     style="align-content: center"
+                                     action="#{pagoBeans.insertarPago()}"
+                                     update="@form"/>
+
+
+                    <p:commandButton id="cancelar"
+                                     value="Cancelar Pedido"
+                                     icon="ui-icon-circle-close"
+                                     style="align-content: center"
+                                     action="MostrarDetallePedido.xhtml"
+                                     process="@this"></p:commandButton>
+                </f:facet>
+            </p:panelGrid>
+
+        </h:form>
+        
+        <h:form id="formTarjeta" >
+             <!--<h:form id="formModificar">-->
+            <p:dialog id="dlg" widgetVar="dlgModificar" header="Registro de Tarjeta">
+            <p:growl id="msg" showDetail="true" life="10000"/>
+            <p:panel header="Registro de Tarjeta">
+                <p:panelGrid columns="2" style="width: 100%">
+                    
+                     <h:outputLabel for="codpago"  value="CODIGO PAGO"/>
+                     <p:outputLabel value="#{pagoBeans.auxiliarTarjeta}"                           
+                               style="width: 180px; margin-left: -4px" id="pedido"/>
+                     <h:outputLabel for="numero" value="NUMERO"/>
+                     <p:inputText   value="#{pagoBeans.tarjetaSelect.numero}" 
+                                  size="20" required="true"
+                                  style="width: 1080px; margin-left: -4px" id="numero" >
+                        <!--<f:validateLength maximum="16"/>-->
+                          
+                    </p:inputText>                 
+                     <p:outputLabel for="fechaValida"  value="FECHA VENCIMIENTO"/>
+                     <p:inputText value="#{pagoBeans.tarjetaSelect.fechaValida}"
+                                  size="35" required="true"
+                                  style="width: 1080px; margin-left: -4px" id="fechaValida">
+                        <!--<f:validateLength maximum="5"/>-->
+                    </p:inputText>
+                     
+                    <f:facet name="footer">
+                        <p:commandButton id="guardar"
+                                         value="Guardar" 
+                                         icon="ui-icon-check"
+                                         style="margin: 0"
+                                         action="main" update="@form"  />
+                                       
+                       
+                        <p:commandButton id="cancelar"
+                                         value="Volver"
+                                         icon="ui-icon-circle-close"
+                                         style="margin: 0"
+                                         action="main:"
+                                         process="@this"></p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

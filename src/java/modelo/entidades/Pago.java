@@ -6,7 +6,6 @@
 package modelo.entidades;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +14,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pago.findAll", query = "SELECT p FROM Pago p")
     , @NamedQuery(name = "Pago.findByCodpago", query = "SELECT p FROM Pago p WHERE p.codpago = :codpago")
     , @NamedQuery(name = "Pago.findByMonto", query = "SELECT p FROM Pago p WHERE p.monto = :monto")
-    , @NamedQuery(name = "Pago.findByTipoPago", query = "SELECT p FROM Pago p WHERE p.tipoPago = :tipoPago")})
+    , @NamedQuery(name = "Pago.findByTipoPago", query = "SELECT p FROM Pago p WHERE p.tipoPago = :tipoPago")
+    , @NamedQuery(name = "Pago.findByMontoviaje", query = "SELECT p FROM Pago p WHERE p.montoviaje = :montoviaje")})
 public class Pago implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,11 +47,11 @@ public class Pago implements Serializable {
     @Size(max = 10)
     @Column(name = "tipo_pago")
     private String tipoPago;
-    @JoinColumn(name = "codtarjeta", referencedColumnName = "codtarjeta")
+    @Column(name = "montoviaje")
+    private Double montoviaje;
+    @JoinColumn(name = "codpedido", referencedColumnName = "codpedidos")
     @ManyToOne
-    private Tarjeta codtarjeta;
-    @OneToMany(mappedBy = "codpago")
-    private List<Viaje> viajeList;
+    private Pedidos codpedido;
 
     public Pago() {
     }
@@ -86,21 +84,20 @@ public class Pago implements Serializable {
         this.tipoPago = tipoPago;
     }
 
-    public Tarjeta getCodtarjeta() {
-        return codtarjeta;
+    public Double getMontoviaje() {
+        return montoviaje;
     }
 
-    public void setCodtarjeta(Tarjeta codtarjeta) {
-        this.codtarjeta = codtarjeta;
+    public void setMontoviaje(Double montoviaje) {
+        this.montoviaje = montoviaje;
     }
 
-    @XmlTransient
-    public List<Viaje> getViajeList() {
-        return viajeList;
+    public Pedidos getCodpedido() {
+        return codpedido;
     }
 
-    public void setViajeList(List<Viaje> viajeList) {
-        this.viajeList = viajeList;
+    public void setCodpedido(Pedidos codpedido) {
+        this.codpedido = codpedido;
     }
 
     @Override

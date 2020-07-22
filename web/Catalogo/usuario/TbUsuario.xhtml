@@ -8,8 +8,8 @@
 
     <ui:define name="content">
         <h:form id="frmUsuario" acceptcharset="ISO-8859-1">
-            <p:growl autoUpdate="true" showDetail="true"/>
-            <p:messages autoUpdate="true" showDetail="true"/>
+            <p:growl  showDetail="true"/>
+            <p:messages showDetail="true"/>
 
             <p:dataTable id="tablaUsuario" value="#{usuarioBean.usuarioList}" 
                          var="usuario" 
@@ -35,14 +35,11 @@
                 <p:column headerText="USUARIO" filterBy="#{usuario.idusuario}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
                     <h:outputLabel value="#{usuario.idusuario}"/>
                 </p:column>
-                <p:column headerText="CONTRASEÑA" filterBy="#{usuario.contrasenia}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
-                    <h:outputLabel value="#{usuario.contrasenia}"/>
-                </p:column>
                 <p:column headerText="EMPLEADO" filterBy="#{usuario.codempleado.nombre}" filterMatchMode="exact" style="width: 50px;margin-left: -4px">
                     <h:outputLabel value="#{usuario.codempleado.nombre}"/>
                 </p:column>
-                <p:column headerText="Acciones" style="width: 12%">
-                    <p:panelGrid>
+                <p:column headerText="Acciones" style="width: 2%">
+                    <p:panelGrid >
                         <p:column headerText="">
                             <p:commandButton icon="ui-icon-pencil" oncomplete="PF('dlgModificar').show();" ajax="true" update="formModificar">
                                 <f:setPropertyActionListener target="#{usuarioBean.usuarioSelecionado}" value="#{usuario}"/>

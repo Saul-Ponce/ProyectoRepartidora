@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Clientes.findByApellido", query = "SELECT c FROM Clientes c WHERE c.apellido = :apellido")
     , @NamedQuery(name = "Clientes.findByDireccion", query = "SELECT c FROM Clientes c WHERE c.direccion = :direccion")
     , @NamedQuery(name = "Clientes.findByEmail", query = "SELECT c FROM Clientes c WHERE c.email = :email")
-    , @NamedQuery(name = "Clientes.findByTelefono", query = "SELECT c FROM Clientes c WHERE c.telefono = :telefono")})
+    , @NamedQuery(name = "Clientes.findByTelefono", query = "SELECT c FROM Clientes c WHERE c.telefono = :telefono")
+    , @NamedQuery(name = "Clientes.findByContrasenia", query = "SELECT c FROM Clientes c WHERE c.contrasenia = :contrasenia")})
 public class Clientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -62,6 +63,9 @@ public class Clientes implements Serializable {
     @Size(max = 10)
     @Column(name = "telefono")
     private String telefono;
+    @Size(max = 30)
+    @Column(name = "contrasenia")
+    private String contrasenia;
     @OneToMany(mappedBy = "codcliente")
     private List<Pedidos> pedidosList;
     @JoinColumn(name = "codmunicipio", referencedColumnName = "codmunicipio")
@@ -121,6 +125,14 @@ public class Clientes implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getContrasenia() {
+        return contrasenia;
+    }
+
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     @XmlTransient

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+            <p:growl id="msg" showDetail="true" life="10000"/>
+            <p:panel header="Nuevo Empleado">
+                <p:panelGrid columns="2" style="width: 100%">
+
+                    <h:outputLabel value="NOMBRE"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.nombre}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nombre">
+                        <f:validateLength maximum="30"/>
+                    </p:inputText>
+                    <h:outputLabel value="APELLIDO"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.apellido}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="apellido">
+                        <f:validateLength maximum="30"/>
+                    </p:inputText>
+                    <h:outputLabel value="DUI"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.dui}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="dui">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText>
+
+                    <h:outputLabel value="DIRECCION"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.direccion}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="direccion">
+                        <f:validateLength maximum="150"/>
+                    </p:inputText>
+                    <h:outputLabel value="NIT"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.nit}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="nit">
+                        <f:validateLength maximum="20"/>
+                    </p:inputText>
+                    <h:outputLabel value="ISSS"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.isss}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="isss">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText>
+                    <h:outputLabel value="TIPO DE CONTRATO"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.tipoContrato}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="tipo">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText>
+                    <p:outputLabel for="txtFechaL" value="FECHA DE CONTRATO"/>
+                    <p:calendar id="txtFechaL" value="#{empleadoBean.empleadoSelecionado.fechaContrato}"/>
+
+
+                    <h:outputLabel value="ESTADO"/>
+                    <p:inputText value="#{empleadoBean.empleadoSelecionado.estado}" size="25" required="true" style="width: 1080px;margin-left: -4px" id="estado">
+                        <f:validateLength maximum="10"/>
+                    </p:inputText>
+
+                    <h:outputLabel for="restaurante" value="CARGO"/>
+                    <p:selectOneMenu id="restaurante" style="width: 1080px;margin-left: -4px" value="#{empleadoBean.cargoSelecionado.codcargo}">
+                        <f:selectItem itemLabel="--Seleccione--" itemValue="0"/>
+                        <f:selectItems value="#{empleadoBean.cargoList}" var="r" itemLabel="#{r.nombrecargo}" itemValue="#{r.codcargo}"/>
+                    </p:selectOneMenu>
+
+                    <f:facet name="footer">
+                        <p:commandButton id="Guardar" value="Guardar" icon="ui-icon-check" style="margin: 0" action="#{empleadoBean.actualizarEmpleado()}" update="@form"></p:commandButton>
+                        <p:commandButton id="Cancelar" icon="ui-icon-circle-close" style="margin: 0" action="TbEmplaeado" process="@this"></p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

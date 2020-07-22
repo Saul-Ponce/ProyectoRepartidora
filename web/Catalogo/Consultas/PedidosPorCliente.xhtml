@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../Principal/TemplatePrincipal.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="main">
+           <h3 align="CENTER">Lista de Pedidos Por Cliente</h3>
+           <p:panelGrid    >
+                 <br></br>
+                 <p:row>
+                     <p:column>
+                 <p:outputLabel value="Seleccione Cliente: " />
+                 
+                 <p:selectOneMenu id="comboClien" value="#{pedidosPorClienteBeans.clienteselect.codclientes}" style="width:200px">
+                    <f:selectItem itemLabel="Seleccione" itemValue="0" />
+                    <f:selectItems value="#{pedidosPorClienteBeans.listaCliente}" var="cli" itemLabel="#{cli.nombre} #{cli.apellido}" itemValue="#{cli.codclientes}" />
+                </p:selectOneMenu></p:column>
+
+                     <p:column>
+                         <p:commandButton value="Consultar" action="#{pedidosPorClienteBeans.mostrarPedidos()}" update="formPedidosC:tablaPedidoCliente" />
+                     </p:column>
+                 </p:row>
+                 
+                 
+            </p:panelGrid>
+          
+
+        </h:form>
+        
+        <h:form id="formPedidosC">
+            <p:dataTable id="tablaPedidoCliente" value="#{pedidosPorClienteBeans.listaDtPedidoSelect}" var="pedi">
+                <p:column headerText="Fecha Pedido" filterBy="#{pedi.codpedido.fechapedido}">
+                    <h:outputText value="#{pedi.codpedido.fechapedido}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Hora Pedido" >
+                    <h:outputText value="#{pedi.codpedido.horapedido}" />
+                </p:column>
+                <p:column headerText="Restaurante">
+                    <h:outputText value="#{pedi.codcomida.codrestaurante.nombreRestaurante}" />
+                </p:column>
+                <p:column headerText="Comida">
+                    <h:outputText value="#{pedi.codcomida.nombre}" />
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
